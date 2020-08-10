@@ -6,20 +6,23 @@
 
 <script src="~/js/randexp.min.js" type="text/javascript"></script>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<form method="post">
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <label>Password:</label><br />
+    <textarea id="textarea"></textarea>
+    <button type="button" onclick="generate()">Generate</button>
+</form>
 
 <script>
-    document.body.innerHTML += "<br/>" + new RandExp(/^.*(?=.*[A-Z]){7,10}.*$/).gen();
-    //document.body.innerHTML += "<br/>" + new RandExp(/I like (cats|dogs|mice)/).gen();
+    function generate() {
+        var randexp = new RandExp(/^(?=^.{7,20}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
+        randexp.min = 7;                              
+        randexp.max = 20;
+        var randstr = "";
+        for (let i = 0; i < 20; i++) {
+            randstr += randexp.gen() + "\n";
+        }
+        document.getElementById("textarea").value = randstr;
+    }
 
 </script>
